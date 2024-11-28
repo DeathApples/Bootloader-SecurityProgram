@@ -1,1 +1,4 @@
 *.vhd
+
+builds/*
+!builds/.keep
