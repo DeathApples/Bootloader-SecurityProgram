@@ -2,9 +2,13 @@ bits 16
 org 0x500
 
 
+%define MENU_OFFSET 0x900
+
+
 _start:
-    push message
-    call print
+    ; push message
+    ; call print
+    jmp MENU_OFFSET
 
 
 .halt:
