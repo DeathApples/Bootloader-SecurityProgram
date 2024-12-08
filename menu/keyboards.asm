@@ -6,6 +6,14 @@ authenticate:
     push bp
     mov bp, sp
 
+    mov ah, 0x02
+    mov bx, SELECTED_OPT_COLOR
+    mov dx, 0x0a04
+    int 0x10
+
+    xor di, di
+    mov es, di
+
 .input_password_handle:
     mov ah, 0x10
     int 0x16

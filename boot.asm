@@ -8,12 +8,12 @@ org 0x7c00
 _start:
     xor ax, ax
     mov ss, ax
-    mov sp, 0x7c00
+    mov sp, 0x1600
 
     mov bx, GAME_OFFSET
     mov ax, 0x209
     mov dx, 0x80
-    mov cx, 0x3
+    mov cx, 0x03
     int 0x13
 
     jmp GAME_OFFSET

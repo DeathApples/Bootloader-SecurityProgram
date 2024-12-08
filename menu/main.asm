@@ -2,7 +2,7 @@ bits 16
 org 0xd00
 
 
-
+%define BOOT_OFFSET 0x7c00
 %define SELECTED_OPT_COLOR 0x2a
 
 
@@ -17,14 +17,6 @@ _start:
     push 0x1a
     push 0x4c
     call draw_rectangle
-
-    mov ah, 0x02
-    mov bx, SELECTED_OPT_COLOR
-    mov dx, 0x0a04
-    int 0x10
-
-    xor di, di
-    mov es, di
 
     call authenticate
 
@@ -47,9 +39,19 @@ _start:
     call draw_selected_opt
 
     call select_os
-    hlt
+
+    mov ax, 0x03
+    int 0x10
+
+    call deactivate_all_partitions
+    call activate_partition
+    call prepare_boot_os
+
+    mov sp, BOOT_OFFSET
+    jmp BOOT_OFFSET
 
 
+%include "menu/bootloader.asm"
 %include "menu/keyboards.asm"
 %include "menu/graphics.asm"
 %include "menu/prints.asm"
