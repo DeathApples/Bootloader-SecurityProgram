@@ -55,6 +55,35 @@ draw_rectangle:
     ret 8
 
 
+draw_selected_opt:
+    push bp
+    mov bp, sp
+
+    mov ax, [bp + 4]
+    mov dx, OPT_HEIGHT + OPT_GAP
+    mul dx
+    add ax, 0x1c
+    mov bx, ax
+    mov ax, [bp + 4]
+    inc ax
+    mov dx, OPT_HEIGHT + OPT_GAP
+    mul dx
+    add ax, 0x1c
+
+    mov dx, [bp + 6]
+    mov WORD [color], dx
+
+    push 0x133
+    push ax
+    push 0x0b
+    push bx
+    call draw_rectangle
+
+.return:
+    pop bp
+    ret 4
+
+
 
 draw_horizontal_line:
     push bp
@@ -132,36 +161,7 @@ draw_vertical_line:
 
 
 
-draw_selected_opt:
-    push bp
-    mov bp, sp
-
-    mov ax, [bp + 4]
-    mov dx, OPT_HEIGHT + OPT_GAP
-    mul dx
-    add ax, 0x1c
-    mov bx, ax
-    mov ax, [bp + 4]
-    inc ax
-    mov dx, OPT_HEIGHT + OPT_GAP
-    mul dx
-    add ax, 0x1c
-
-    mov dx, [bp + 6]
-    mov WORD [color], dx
-
-    push 0x133
-    push ax
-    push 0x0b
-    push bx
-    call draw_rectangle
-
-.return:
-    pop bp
-    ret 4
-
-
-
 section .data
+
 color dw 0x1c
 

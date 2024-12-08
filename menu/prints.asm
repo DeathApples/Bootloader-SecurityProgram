@@ -10,7 +10,7 @@ print:
     mov si, [bp + 4]
 
 .next_char:
-    mov al, byte [si]
+    mov al, BYTE [si]
     or al, al
     je .return
 
@@ -61,12 +61,25 @@ print_hints:
     push bp
     mov bp, sp
 
-    push 0x1404
+    push 0x1402
     push hint1
     call print_at_line
 
-    push 0x1603
+    push 0x1602
     push hint2
+    call print_at_line
+
+    pop bp
+    ret 4
+
+
+
+print_invitation:
+    push bp
+    mov bp, sp
+
+    push 0x0804
+    push invite
     call print_at_line
 
     pop bp
@@ -99,8 +112,10 @@ print_options:
 
 section .data
 
+invite db "Enter the password", 0
+
 title db "Custom Bootloader ver. 1.0", 0
-hint1 db "Use the arrows keys to select OS", 0
+hint1 db "Use the ", 0x18, " and ", 0x19, " keys to select OS", 0
 hint2 db "Press enter to boot the selected OS", 0
 
 opt_msdos db "MS-DOS 6.22", 0
