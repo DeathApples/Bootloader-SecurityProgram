@@ -8,17 +8,17 @@ deactivate_all_partitions:
 
     xor di, di
 
-.deactivate_part:
-    mov BYTE [di + BOOT_OFFSET + 0x01be], 0x00
-    mov BYTE [di + BOOT_OFFSET + 0x01be + 0x04], 0xff
-    add di, 0x10
+    .deactivate_part:
+        mov BYTE [di + BOOT_OFFSET + 0x01be], 0x00
+        mov BYTE [di + BOOT_OFFSET + 0x01be + 0x04], 0xff
+        add di, 0x10
 
-    cmp di, 0x30
-    jle .deactivate_part
+        cmp di, 0x30
+        jle .deactivate_part
 
-.return:
-    pop bp
-    ret
+    .return:
+        pop bp
+        ret
 
 
 
@@ -34,28 +34,28 @@ activate_partition:
 
     mov cl, 0x06
 
-.activate_part:
-    mov bx, 0x10
-    mul bx
+    .activate_part:
+        mov bx, 0x10
+        mul bx
 
-    mov di, ax
+        mov di, ax
 
-    mov BYTE [di + BOOT_OFFSET + 0x01be], 0x80
-    mov BYTE [di + BOOT_OFFSET + 0x01be + 0x04], cl
+        mov BYTE [di + BOOT_OFFSET + 0x01be], 0x80
+        mov BYTE [di + BOOT_OFFSET + 0x01be + 0x04], cl
 
-    xor ax, ax
-    mov es, ax
+        xor ax, ax
+        mov es, ax
 
-    mov bx, BOOT_OFFSET
+        mov bx, BOOT_OFFSET
 
-    mov ax, 0x301
-    mov dx, 0x80
-    mov cx, 0x01
-    int 0x13
+        mov ax, 0x301
+        mov dx, 0x80
+        mov cx, 0x01
+        int 0x13
 
-.return:
-    pop bp
-    ret
+    .return:
+        pop bp
+        ret
 
 
 
@@ -75,7 +75,7 @@ prepare_boot_os:
     mov cx, WORD [si + BOOT_OFFSET + 0x01be + 0x02]
     int 0x13
 
-.return:
-    pop bp
-    ret
+    .return:
+        pop bp
+        ret
 

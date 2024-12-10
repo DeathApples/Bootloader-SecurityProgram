@@ -50,9 +50,9 @@ draw_rectangle:
     push ax
     call draw_horizontal_line
 
-.return:
-    pop bp
-    ret 8
+    .return:
+        pop bp
+        ret 8
 
 
 draw_selected_opt:
@@ -79,9 +79,9 @@ draw_selected_opt:
     push bx
     call draw_rectangle
 
-.return:
-    pop bp
-    ret 4
+    .return:
+        pop bp
+        ret 4
 
 
 
@@ -93,33 +93,33 @@ draw_horizontal_line:
     mov bx, WORD [color]
     mov es, ax
 
-.next_line:
-    cmp bh, 0x01
-    jg .return
+    .next_line:
+        cmp bh, 0x01
+        jg .return
 
-    mov ax, SCREEN_WIDTH
-    mov dx, [bp + 4]
-    add dl, bh
-    adc dh, 0
-    mul dx
+        mov ax, SCREEN_WIDTH
+        mov dx, [bp + 4]
+        add dl, bh
+        adc dh, 0
+        mul dx
 
-    add ax, [bp + 6]
-    mov di, ax
-    xor cx, cx
+        add ax, [bp + 6]
+        mov di, ax
+        xor cx, cx
 
-.draw_line:
-    inc di
-    inc cx
-    mov [es:di], bl
-    cmp cx, [bp + 8]
-    jle .draw_line
+    .draw_line:
+        inc di
+        inc cx
+        mov [es:di], bl
+        cmp cx, [bp + 8]
+        jle .draw_line
 
-    inc bh
-    jmp .next_line
+        inc bh
+        jmp .next_line
 
-.return:
-    pop bp
-    ret 6
+    .return:
+        pop bp
+        ret 6
 
 
 
@@ -132,36 +132,35 @@ draw_vertical_line:
     mov es, ax
     xor cx, cx
 
-.next_line:
-    cmp cx, [bp + 8]
-    jg .return
+    .next_line:
+        cmp cx, [bp + 8]
+        jg .return
 
-    mov ax, SCREEN_WIDTH
-    mov dx, [bp + 4]
-    add dx, cx
-    mul dx
+        mov ax, SCREEN_WIDTH
+        mov dx, [bp + 4]
+        add dx, cx
+        mul dx
 
-    add ax, [bp + 6]
-    mov di, ax
-    xor bh, bh
+        add ax, [bp + 6]
+        mov di, ax
+        xor bh, bh
 
-.draw_line:
-    inc di
-    inc bh
-    mov [es:di], bl
-    cmp bh, 0x01
-    jle .draw_line
+    .draw_line:
+        inc di
+        inc bh
+        mov [es:di], bl
+        cmp bh, 0x01
+        jle .draw_line
 
-    inc cx
-    jmp .next_line
+        inc cx
+        jmp .next_line
 
-.return:
-    pop bp
-    ret 6
+    .return:
+        pop bp
+        ret 6
 
 
 
 section .data
-
 color dw 0x1c
 

@@ -1,12 +1,13 @@
 bits 16
-org 0xd00
-
+org 0x700
 
 %define BOOT_OFFSET 0x7c00
 %define SELECTED_OPT_COLOR 0x2a
 
-
 _start:
+    xor ax, ax
+    mov ds, ax
+
     mov ax, 0x13
     int 0x10
 
@@ -50,9 +51,10 @@ _start:
     mov sp, BOOT_OFFSET
     jmp BOOT_OFFSET
 
-
 %include "menu/bootloader.asm"
 %include "menu/keyboards.asm"
 %include "menu/graphics.asm"
 %include "menu/prints.asm"
 
+section .data
+null db 46 dup(0)

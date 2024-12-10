@@ -20,9 +20,9 @@ print:
     inc si
     jmp .next_char
 
-.return:
-    pop bp
-    ret 2
+    .return:
+        pop bp
+        ret 2
 
 
 
@@ -95,18 +95,18 @@ print_options:
     mov cx, 0x04
     xor di, di
 
-.print_opt:
-    add dh, 0x02
-    push dx
-    mov bx, options
-    push WORD [bx + di]
-    call print_at_line
+    .print_opt:
+        add dh, 0x02
+        push dx
+        mov bx, options
+        push WORD [bx + di]
+        call print_at_line
 
-    add di, 0x02
-    loop .print_opt
+        add di, 0x02
+        loop .print_opt
 
-    pop bp
-    ret 4
+        pop bp
+        ret 4
 
 
 
