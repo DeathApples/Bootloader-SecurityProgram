@@ -9,7 +9,7 @@ _start:
     mov sp, 0x1600
 
     mov bx, GAME_OFFSET
-    mov ax, 0x203
+    mov ax, 0x204
     mov dx, 0x80
     mov cx, 0x03
     int 0x13

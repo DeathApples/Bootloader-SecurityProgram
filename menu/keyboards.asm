@@ -1,4 +1,4 @@
-%define PASSWORD_OFFSET 0xae0
+%define PASSWORD_OFFSET 0xb00
 
 
 
